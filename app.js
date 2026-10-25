@@ -387,3 +387,37 @@ $('#listen').onclick = e => {
   e.target.classList.add('on'); sp.speak(u);
 };
 render();
+
+
+/* ---------------- phone popup ---------------- */
+(function () {
+  const modal = $('#phone-modal'), openBtn = $('#open-phone'), clock = $('#clock');
+  let opener = null, timer = null;
+  const tick = () => { const d = new Date(); clock.textContent = d.getHours() + ':' + String(d.getMinutes()).padStart(2, '0'); };
+  function open(from) {
+    if (!modal.hidden) return;
+    opener = from || openBtn; tick();
+    clearTimeout(timer); modal.hidden = false; document.body.classList.add('pm-lock');
+    void modal.offsetWidth; modal.classList.add('open');
+    setTimeout(() => $('.pm-x').focus({ preventScroll: true }), 350);
+  }
+  function close() {
+    if (modal.hidden) return;
+    modal.classList.remove('open'); document.body.classList.remove('pm-lock');
+    timer = setTimeout(() => { modal.hidden = true; }, 520);
+    if (opener) opener.focus({ preventScroll: true });
+  }
+  openBtn.onclick = () => open(openBtn);
+  modal.addEventListener('click', e => { if (e.target.closest('[data-close]')) close(); });
+  addEventListener('keydown', e => {
+    if (e.key === 'Escape') close();
+    if (e.key === 'Tab' && !modal.hidden) {
+      const f = [...modal.querySelectorAll('button:not([disabled]),input,a[href]')].filter(x => x.offsetParent);
+      if (!f.length) return;
+      const a = f[0], z = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === a) { e.preventDefault(); z.focus(); }
+      else if (!e.shiftKey && document.activeElement === z) { e.preventDefault(); a.focus(); }
+    }
+  });
+  document.querySelectorAll('a[href="#app"]').forEach(a => a.addEventListener('click', () => { setTimeout(() => open(a), 450); }));
+})();

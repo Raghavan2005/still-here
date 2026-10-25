@@ -161,6 +161,7 @@
     if (done) return; done = true; running = false; cancelAnimationFrame(raf); stopAudio();
     try { sessionStorage.setItem('story-seen', '1'); } catch (e) {}
     el.classList.add('out'); document.body.classList.remove('storying');
+    try { if (document.fullscreenElement) document.exitFullscreen().catch(() => {}); } catch (e) {}
     setTimeout(() => { el.hidden = true; }, 1000);
     const h = document.querySelector('#top-of-site h1'); if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
   }
@@ -173,6 +174,7 @@
     gate.hidden = false; document.getElementById('gate-sound').focus({ preventScroll: true });
   }
   function begin(withSound) {
+    try { const r = document.documentElement; if (!document.fullscreenElement && r.requestFullscreen) r.requestFullscreen().catch(() => {}); } catch (e) {}
     gate.hidden = true; act.hidden = true; cap.innerHTML = ''; idx = -1; parts = []; done = false; running = true;
     dots.forEach(d => { d.spawned = false; });
     wantSound = withSound; muteBtn.hidden = !withSound; setMute(withSound);
@@ -192,5 +194,5 @@
   document.querySelectorAll('[data-replay-story]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); scrollTo(0, 0); showGate(); }));
   document.addEventListener('visibilitychange', () => { if (ac) document.hidden ? ac.suspend() : ac.resume(); });
 
-  if (seen && !forced) { el.hidden = true; } else { showGate(); }
+  if (seen && !forced) { el.hidden = true; document.body.classList.remove('storying'); } else { showGate(); }
 })();

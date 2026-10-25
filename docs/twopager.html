@@ -1,0 +1,58 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Still Here – 2-pager</title>
+<style>
+@page{size:A4;margin:14mm 15mm}
+body{font:12px/1.4 Helvetica,Arial,sans-serif;color:#111;margin:0}
+h1{font-size:20px;margin:0 0 4px}h2{font-size:13px;margin:10px 0 3px;border-bottom:1px solid #999;padding-bottom:1px}
+p{margin:3px 0}ul{margin:3px 0;padding-left:16px}li{margin:1px 0}
+table{border-collapse:collapse;width:100%;font-size:11.5px;margin:4px 0}td,th{border:1px solid #bbb;padding:2px 5px;text-align:left;vertical-align:top}th{background:#eee}
+.cover{page-break-after:always;height:255mm;display:flex;flex-direction:column;justify-content:center}
+.cover h1{font-size:34px}.cover p{font-size:13px}
+</style></head><body>
+<div class="cover"><h1>Still Here</h1><p><b>Finding people who cannot ask for help, in the first days after a disaster</b></p><p>Problem analysis and proposed solution (2-pager) · Prototype: see link supplied with this document</p></div>
+
+<h1>Still Here</h1>
+<h2>1. The problem and why we chose it</h2>
+<p>After a mass disaster, half the population may be gone and the rest are shaken, short of food and connectivity. Help goes to people who can <i>ask</i>: those with a phone, signal and a voice. Some of the most vulnerable cannot ask at all: a baby alone in a flat, a bedridden elder, a person with a disability, someone whose carer has vanished. Someone else usually knows they exist: a neighbour, a relative in another city, a nurse with a patient list. That knowledge has nowhere to go.</p>
+<p><b>Why this one.</b> We compared several gaps (supplies, shelter, family tracing, rumours). We chose this because (a) the cost of delay is highest: a child without water has hours, not days; (b) it is the gap existing channels miss, since social posts and helplines reward people who can speak for themselves; (c) it is solvable with ordinary people, because a neighbour within walking distance is the only resource that exists on Day 1; (d) it has a hard design tension worth solving: <b>the same address that saves a child also invites a thief or kidnapper.</b> We therefore built the product around who sees what, and when.</p>
+
+<h2>2. Who it is for</h2>
+<ul><li><b>Primary: the responder</b>, a neighbour who is shaken, on foot, with one hand free and a few spare hours. If responders do not turn up nothing else matters, so their screens get the most care.</li>
+<li><b>Reporters</b>: a relative far away, a nurse, a neighbour behind a locked door. They use one short report form.</li>
+<li><b>Never a user: the person in need.</b> They cannot use an app. Every screen is written about them, not to them.</li>
+<li><b>Care staff and local groups</b>: vouch for helpers and see cases that nobody has claimed.</li></ul>
+
+<h2>3. The product and how it solves the problem</h2>
+<p>A light web app (plain files, nothing to download) that runs one loop: <b>report → someone goes → they record what is needed → someone is named as responsible.</b> Everything else is deliberately left out.</p>
+<table><tr><th style="width:26%">Feature</th><th>What it does</th><th style="width:42%">Why (the reason it exists)</th></tr>
+<tr><td>4-step report</td><td>Who, what is wrong, how long without care, where. Takes under a minute.</td><td>A frightened reporter will abandon a long form; those four answers are the minimum to rank urgency.</td></tr>
+<tr><td>Staged reveal of location</td><td>Nearby list shows only "small child, no food or water, ~400 m". Street appears after "I'll go"; flat and door only on "I'm outside the building".</td><td>A map of pins is the obvious design and the one that helps predators most. Commitment gates detail.</td></tr>
+<tr><td>Preview before sending</td><td>Reporter sees exactly what strangers will and will not see.</td><td>People share sensitive details only if they understand the limits.</td></tr>
+<tr><td>Photos released last</td><td>Reporter-supplied, shrunk, hidden in the list, shown only at the door after commitment, off on weak signal.</td><td>A photo helps find the right person in a building and is also the most sensitive item.</td></tr>
+<tr><td>One open visit per helper, 90-minute hold, logged reveals, vouched helpers</td><td>A helper holds one case at a time; each reveal is recorded with their name; local groups vouch for helpers. Child cases ask for a second person.</td><td>Limits misuse and creates accountability. It reduces risk; it does not remove it, and we say so.</td></tr>
+<tr><td>Trust through consequences, not blocking</td><td>Reporter says how they know; repeat and staff reports are labelled; "nobody here, no blame" closes in one tap; empty addresses lower a reporter's reliability.</td><td>Requiring verification first costs lives. Wrongly ignoring a baby costs far more than a wasted walk.</td></tr>
+<tr><td>Visit cannot close without a name and a time</td><td>"Done" is disabled until someone is named responsible and a next check is set. Otherwise the case returns to the list with findings.</td><td>Free-text notes are written and never read. The danger on Day 2 is people being abandoned after one visit.</td></tr>
+<tr><td>Works with no signal</td><td>Taps are saved on the phone and sent later; with no data, a pre-written SMS is offered.</td><td>Networks fail in the disaster itself; a tool that needs signal fails the people it is for.</td></tr>
+<tr><td>Visible urgency score</td><td>Sum of who + what is wrong + hours since care, shown with colour, shape and words.</td><td>Helpers can disagree with it and see why; it also works for colour-blind or hurried users.</td></tr>
+<tr><td>Care-staff board and overdue flags</td><td>Unclaimed, "needs two" and overdue cases are listed for coordinators.</td><td>Shows where volunteers are short and where follow-up is slipping.</td></tr>
+<tr><td>Opening story and plain language</td><td>Short opening scene, then simple wording throughout.</td><td>Helps first-time visitors grasp the stakes quickly; the story is not needed to use the tool.</td></tr></table>
+
+<h2>4. Key decisions and what we rejected</h2>
+<ul><li><b>Rejected: a public map.</b> Fastest to build, but it is a target list.</li>
+<li><b>Rejected: verify before a report counts.</b> A delay costs lives; consequences after the fact keep reports honest without slowing the first one.</li>
+<li><b>Rejected: free notes at the end of a visit.</b> Replaced with a mandatory owner and next-check time.</li>
+<li><b>Rejected: app-store install or login.</b> Anyone with a basic browser, even offline, must be able to use it.</li></ul>
+
+<h2>5. How we will know it works</h2>
+<table><tr><th>Measure</th><th>Target / meaning</th></tr>
+<tr><td>Time from report to a person at the door, by urgency</td><td>Under 60 minutes for "go now" cases</td></tr>
+<tr><td>Closed visits with a named owner and next-check time</td><td>100% (enforced by the product)</td></tr>
+<tr><td>Next checks done on time</td><td>The key number: shows whether people were abandoned on Day 2</td></tr>
+<tr><td>"Nobody here" rate per reporter; addresses revealed with no visit</td><td>Early signs of false reports or misuse</td></tr>
+<tr><td>Cases unclaimed after 3 hours</td><td>The true volunteer shortfall, to direct recruitment</td></tr></table>
+<p>We do <b>not</b> count downloads, time in app or reports submitted: more use is not more safety.</p>
+
+<h2>6. Risks and limits (honest view)</h2>
+<ul><li>A determined thief can still lie their way in; staging, logging, vouching and the second-person rule reduce but do not remove this.</li>
+<li>Volunteer supply is the real bottleneck; the product exposes it but cannot create helpers.</li>
+<li>The prototype is a visual representation only: data is simulated and not connected to live services.</li></ul>
+</body></html>

@@ -73,6 +73,29 @@
       <button id="reset" class="btn small">Reset demo</button>
     </div>
     <div class="stage">
+      <button type="button" id="open-phone" class="teaser" aria-haspopup="dialog" aria-label="Open the phone demo">
+        <span class="glow" aria-hidden="true"></span>
+        <span class="mini" aria-hidden="true">
+          <i class="mn"></i>
+          <span class="mt"><b></b><em></em></span>
+          <span class="mc c1"><u></u><s></s><s class="sh"></s></span>
+          <span class="mc c2"><u></u><s></s><s class="sh"></s></span>
+          <span class="mc c3"><u></u><s></s><s class="sh"></s></span>
+          <span class="mb"><b></b><b></b><b></b><b></b></span>
+          <span class="ping"></span>
+        </span>
+        <span class="tap">Tap to open the phone <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<div id="phone-modal" hidden>
+  <div class="pm-bg" data-close></div>
+  <div class="device" role="dialog" aria-modal="true" aria-label="Still Here phone demo">
+    <button type="button" class="pm-x" data-close aria-label="Close phone">&times;</button>
+    <div class="dev-screen">
+      <div class="statusbar" aria-hidden="true"><span id="clock">9:41</span><i class="notch"></i><span class="bat"></span></div>
       <div id="phone">
         <header id="top">
           <div class="brand">STILL HERE <span>· Day 1</span></div>
@@ -88,9 +111,11 @@
         </nav>
         <div id="toast" role="status" hidden></div>
       </div>
+      <i class="homebar" aria-hidden="true"></i>
     </div>
   </div>
-</section>
+</div>
+
 
 <section id="map" class="band dark">
   <div class="wrap">
