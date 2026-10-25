@@ -5,8 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Still Here – Day 1</title>
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="story.css">
 </head>
-<body>
+<body class="storying">
+
+<div id="story" role="dialog" aria-label="Opening story" aria-live="polite">
+  <canvas aria-hidden="true"></canvas>
+  <div class="vig"></div>
+  <div id="story-cap"></div>
+  <div id="story-act" hidden>
+    <button id="story-go">Find them</button>
+    <button id="story-replay" class="ghost">Watch again</button>
+  </div>
+  <button id="story-skip">Skip story ▸</button>
+</div>
 
 <nav id="site-nav">
   <a class="logo" href="#top-of-site">STILL HERE</a>
@@ -17,6 +29,7 @@
     <a href="#safety">Keeping people safe</a>
     <a href="#board">Care-staff board</a>
     <a href="features.html">Features</a>
+    <a href="#top-of-site" data-replay-story>Replay story</a>
   </div>
 </nav>
 
@@ -127,5 +140,6 @@
 <footer class="band foot"><div class="wrap">Prototype · fake data · built for the first three days only.</div></footer>
 
 <script src="app.js"></script>
+<script src="story.js"></script>
 </body>
 </html>

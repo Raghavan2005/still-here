@@ -1,0 +1,20 @@
+/* Opening story. Fixed full-screen layer above the site, removed when it ends. */
+#story{position:fixed;inset:0;z-index:1000;background:#0b0908;color:#f4efe6;overflow:hidden;transition:opacity .9s ease}
+#story.out{opacity:0;pointer-events:none}
+#story canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+#story .vig{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(11,9,8,.78) 0,rgba(11,9,8,.55) 38%,rgba(11,9,8,0) 72%);pointer-events:none}
+#story-cap{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);padding:0 24px;text-align:center;pointer-events:none}
+#story-cap .l{font:700 clamp(13px,2vw,16px) system-ui;letter-spacing:.2em;text-transform:uppercase;color:#e0a100;margin:0 0 14px}
+#story-cap .t{font:800 clamp(28px,5.4vw,58px)/1.12 Georgia,"Times New Roman",serif;max-width:20ch;margin:0 auto;text-wrap:balance;text-shadow:0 2px 24px #0b0908}
+#story-cap .t.big{font-size:clamp(40px,9vw,104px);letter-spacing:.06em;max-width:none}
+#story-cap .l,#story-cap .t{opacity:0;animation:capin 1.1s ease forwards}
+#story-cap .t{animation-delay:.25s}
+@keyframes capin{from{opacity:0;transform:translateY(10px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+#story-act{position:absolute;left:0;right:0;bottom:12vh;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;padding:0 24px}
+#story-act[hidden]{display:none}
+#story-act button{font:800 19px system-ui;border:3px solid #f4efe6;background:#f4efe6;color:#16130f;border-radius:12px;padding:16px 28px;min-height:56px;cursor:pointer;animation:capin 1s ease both}
+#story-act button.ghost{background:none;color:#f4efe6}
+#story-skip{position:absolute;top:16px;right:16px;border:2px solid rgba(244,239,230,.6);background:rgba(11,9,8,.5);color:#f4efe6;border-radius:99px;padding:8px 16px;font:700 14px system-ui;min-height:40px;cursor:pointer}
+#story button:focus-visible{outline:4px solid #6fb0ff;outline-offset:3px}
+body.storying{overflow:hidden}
+@media (prefers-reduced-motion:reduce){#story-cap .l,#story-cap .t{animation:none;opacity:1}}
