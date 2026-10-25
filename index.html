@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Still Here – Day 1</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav id="site-nav">
+  <a class="logo" href="#top-of-site">STILL HERE</a>
+  <div class="links">
+    <a href="#app">Open the app</a>
+    <a href="#map">World map</a>
+    <a href="#how">How it works</a>
+    <a href="#safety">Keeping people safe</a>
+    <a href="#board">Care-staff board</a>
+  </div>
+</nav>
+
+<header id="top-of-site" class="hero">
+  <div class="wrap">
+    <p class="kicker">Day 1 after the Snap · half of everyone is gone</p>
+    <h1>Somebody in that flat cannot ask for help.</h1>
+    <p class="lead">A baby cannot phone. A bedridden woman cannot post. Still Here lets anyone who knows about them
+      report them, and gets a neighbour to the door within the hour.</p>
+    <div class="cta">
+      <a class="btn solid" href="#app">Someone needs help</a>
+      <a class="btn" href="#app">I can go and check</a>
+    </div>
+    <dl class="facts">
+      <dt>Works with no internet</dt><dd>Saved on the phone, sent later, or sent as an SMS.</dd>
+      <dt>Strangers never get a list of addresses</dt><dd>Street, then flat, then photo. Only after you commit.</dd>
+      <dt>Nobody is left unowned</dt><dd>A visit cannot close without a named person and a next-check time.</dd>
+    </dl>
+  </div>
+</header>
+
+<section id="app" class="stage-section">
+  <div class="wrap two">
+    <div class="side">
+      <h2>Try it</h2>
+      <p>This is the real flow with fake data. You are <b>Ravi</b>, a neighbour vouched for by the Ward 12 volunteer group.</p>
+      <ol class="try">
+        <li><b>Report someone:</b> add a photo too, so the helper can recognise them.</li>
+        <li><b>Go and check:</b> pick a case, see how the address is released step by step.</li>
+        <li><b>Hand over:</b> name who is responsible and when the next check is.</li>
+        <li><b>My visits:</b> one overdue check is waiting for you. Mark it done.</li>
+      </ol>
+      <p class="mute">Tap the signal chip in the phone to simulate weak signal or none. Photos switch off when signal is weak.</p>
+      <button id="bigtext" class="btn small" aria-pressed="false">Bigger text</button>
+      <button id="reset" class="btn small">Reset demo</button>
+    </div>
+    <div class="stage">
+      <div id="phone">
+        <header id="top">
+          <div class="brand">STILL HERE <span>· Day 1</span></div>
+          <div class="tools"><button id="listen" aria-label="Read this screen aloud">Listen</button><button id="sig" aria-label="Change signal (demo)"></button></div>
+        </header>
+        <div id="banner" hidden></div>
+        <main id="screen"></main>
+        <nav id="tabs" aria-label="Main">
+          <button data-go="home">Home</button>
+          <button data-go="report">Report</button>
+          <button data-go="nearby">Nearby</button>
+          <button data-go="visits">My visits<i id="tabdot" hidden></i></button>
+        </nav>
+        <div id="toast" role="status" hidden></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="map" class="band dark">
+  <div class="wrap">
+    <h2>Where help is short, worldwide</h2>
+    <p class="lead2">Nobody can send help from outside, because everywhere lost half its people. This map shows each city's gap, so neighbours know where to recruit volunteers first. Tap a city.</p>
+    <div id="map-sum" class="sum"></div>
+    <div class="mapgrid">
+      <div class="mapbox"><svg id="worldmap" viewBox="0 0 144 58" role="img" aria-label="World map of people waiting for help and helpers available, by city"></svg></div>
+      <div class="mapside">
+        <div id="map-detail" class="detail" aria-live="polite"></div>
+        <h3 class="lh">Most short of helpers first</h3>
+        <div id="map-list" class="maplist"></div>
+      </div>
+    </div>
+    <p class="fine"><b>Counts only.</b> The map never shows a street, a flat or a person. A zone with fewer than 20 reports is merged into the next larger zone, so a single house can never be picked out.</p>
+  </div>
+</section>
+
+<section id="how" class="band">
+  <div class="wrap">
+    <h2>Four things happen</h2>
+    <div class="steps">
+      <article><h3>Someone reports</h3><p>Who they are, what is wrong, where, how long since anyone cared for them. Four taps. Optional photo and door word.</p></article>
+      <article><h3>Someone goes</h3><p>A vetted neighbour sees an anonymous card ordered by urgency and distance, and says "I'll go".</p></article>
+      <article><h3>They find out</h3><p>Water, food, medicine, electricity, safe to leave alone or not. Recorded at the door, in yes or no taps.</p></article>
+      <article><h3>Someone stays responsible</h3><p>A name and a next-check time are required. Miss the check and the case goes back to the top of the list, marked overdue.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="safety" class="band dark">
+  <div class="wrap">
+    <h2>Helpful to helpers. Useless to thieves.</h2>
+    <div class="steps">
+      <article><h3>No map of pins</h3><p>The list says "small child, no water, ~400 m". No name, no address, no number.</p></article>
+      <article><h3>Address in stages</h3><p>Street after "I'll go". Flat and door after "I'm outside". Photo only at the door, never saved on the helper's phone.</p></article>
+      <article><h3>One visit at a time</h3><p>A claim is held 90 minutes, then returns to the list. Every reveal is logged against a vouched name.</p></article>
+      <article><h3>Wrong reports cost the reporter</h3><p>"Nobody here" closes a case in one tap with no blame, and lowers that reporter's reliability.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="board" class="band">
+  <div class="wrap">
+    <h2>Care-staff board</h2>
+    <p class="mute">For the nurse with three staff instead of thirty, and for volunteer coordinators. It shows only what the group needs to dispatch: status, urgency, who holds it. It updates as you use the demo above.</p>
+    <div id="board-sum" class="sum"></div>
+    <div class="tablewrap"><table id="board-table"></table></div>
+  </div>
+</section>
+
+<footer class="band foot"><div class="wrap">Prototype · fake data · built for the first three days only.</div></footer>
+
+<script src="app.js"></script>
+</body>
+</html>

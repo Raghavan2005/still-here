@@ -1,0 +1,49 @@
+STILL HERE - design note (Day 1 after the Snap)
+
+1. WHAT I FOCUSED ON, AND WHY
+Only the first loop: report -> someone goes -> they record what is needed -> someone is named as responsible.
+I chose the moment of the reveal as the core problem: the same address that saves a baby also invites a thief.
+So the whole product is built around who sees what, and when. Everything else is kept out.
+
+2. MAIN USER
+The responder, a neighbour like Ravi: shaken, walking, one hand free, with a few spare hours.
+The relative in Delhi and the nurse use the same 4-step report form. But if the responder
+does not turn up, nothing else matters. So the responder's screens (Nearby, Visit, Handover) get most of the care.
+The person in need never touches the app. Every screen is written about them, not to them.
+
+3. DECISIONS (and what I rejected)
+a) Staged address reveal, instead of a map of pins.
+   A map is the obvious design and the one that helps kidnappers most. Instead the list shows only
+   "small child, no food or water, ~400 m away". Street appears after "I'll go". Flat and door appear
+   only after "I'm outside the building". One open visit per helper, held 90 minutes, every reveal logged
+   with the helper's name, and helpers are vouched for by a local group. A thief can still lie their way
+   in, which is why a child case also asks the helper to bring a second person. This cuts the risk; it does not remove it.
+   The report screen shows the reporter exactly what strangers will and won't see before they send.
+   Photos follow the same rule: reporter-supplied, shrunk to ~360 px, hidden in the list, shown only at the
+   door after the helper has committed, switched off on weak signal. A photo is what lets a helper find the right person in a
+   building, and it is also the most sensitive thing in the app, so it is the last thing released.
+b) Trust through consequences, not through blocking.
+   I considered requiring verification before a report counts. Rejected: a delay costs lives, and the nurse's
+   list is the most reliable data there is. Instead: the reporter says how they know; multiple reports and staff
+   reports are shown as such; the helper can close "nobody here, no blame" in one tap; an empty address
+   lowers the reporter's reliability; a locked door with no answer stays on the list marked "needs two".
+   A report for a baby is never hidden because it is unconfirmed. Wrongly ignoring one costs more than a wasted walk.
+c) A visit cannot be closed without a name and a time.
+   I considered a free "notes" field. Rejected: notes get written and no one reads them. "Done" stays greyed
+   out until someone is named as responsible and a next check is set. If nobody is named, the case returns to
+   the list with what the helper found, rather than silently ending. Missed checks make it "overdue".
+d) Built for no signal.
+   The app is plain files with no downloads. Everything the user taps is saved on the phone and sent when signal
+   returns. With no data at all, the banner offers a pre-written SMS. Photos are off on weak signal.
+   Urgency is a visible sum (who + what is wrong + hours since care), colour plus shape plus words, so a
+   helper can disagree with it and see why.
+
+4. HOW WE WOULD KNOW IT WORKS
+- Time from report to a person at the door, by urgency band (target: under 60 minutes for "go now").
+- Share of cases with a named responder and a next-check time when the visit closes (target: 100%, because the app enforces it).
+- Share of next checks actually done on time. This is the number that shows whether people were abandoned on Day 2.
+- "Nobody here" rate per reporter, and any report where an address was passed on but no visit happened (misuse flag).
+- Cases still sitting unclaimed after 3 hours: the real shortfall in volunteers.
+Not counted: downloads, time in app, reports submitted.
+
+Prototype: open index.html in a browser. Tap the signal chip (top right) to try weak or no network.
