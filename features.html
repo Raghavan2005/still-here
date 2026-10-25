@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Still Here – Features</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.fh{padding:48px 0 24px;border-bottom:3px solid var(--ink)}
+.fh h1{font-size:clamp(30px,5vw,48px);max-width:20ch}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
+.toc a{border:2px solid var(--ink);border-radius:99px;padding:6px 12px;font-weight:700;font-size:14px;color:var(--ink);text-decoration:none;background:var(--card)}
+.group{padding:40px 0;border-bottom:1px solid var(--line)}
+.group>.wrap>h2{font:800 28px Georgia,serif;text-transform:none;letter-spacing:0;color:var(--ink);margin:0 0 4px}
+.group>.wrap>p.mute{margin:0 0 22px;max-width:62ch}
+.feat{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:12px 32px;padding:20px 0;border-top:1px solid var(--line)}
+.feat h3{font:800 20px Georgia,serif;margin:0 0 6px}
+.feat .what{margin:0;font-size:16px;color:var(--mute)}
+.badge{display:inline-block;margin-top:10px;font:800 12px system-ui;letter-spacing:.06em;text-transform:uppercase;border:2px solid;border-radius:99px;padding:3px 10px}
+.badge.built{color:var(--green)}.badge.design{color:var(--amber)}
+dl.d{margin:0;display:grid;grid-template-columns:110px minmax(0,1fr);gap:8px 14px;font-size:16px}
+dl.d dt{font:800 12px system-ui;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);padding-top:3px}
+dl.d dd{margin:0}
+table.pts{min-width:0;width:auto;margin:6px 0}
+table.pts td,table.pts th{padding:4px 14px 4px 0;border:none}
+@media (max-width:760px){.feat{grid-template-columns:1fr}dl.d{grid-template-columns:1fr}dl.d dt{padding:0}}
+</style>
+</head>
+<body>
+<nav id="site-nav">
+  <a class="logo" href="index.html">STILL HERE</a>
+  <div class="links"><a href="index.html#app">Open the app</a><a href="index.html#map">World map</a><a href="features.html">Features</a></div>
+</nav>
+
+<header class="fh"><div class="wrap">
+  <p class="kicker">Feature detail</p>
+  <h1>Every feature, and the rule behind it.</h1>
+  <p class="lead">Each entry says what the feature does, who uses it, the exact rules, what happens with no signal, and how someone could misuse it.
+    A tag shows whether it is working in the prototype or only designed.</p>
+  <nav class="toc" id="toc" aria-label="Sections"></nav>
+</div></header>
+
+<main id="groups"></main>
+<footer class="band foot"><div class="wrap">Prototype · fake data · built for the first three days only. <a href="index.html">Back to the app</a></div></footer>
+
+<script>
+const G = [
+{ id:'report', title:'1. Report someone', sub:'Used by the relative far away, the neighbour, and care staff. One question per screen, big buttons, four steps.', f:[
+ { n:'Four-step report', b:'built', w:'Who, what is wrong, where, then check and send.', d:{
+   Rules:'Step 1: pick one of five types (baby or child, older and cannot move, ill or after surgery, disability, other). Step 2: tap any of five problems and one "last cared for" time. Step 3: building, flat or door colour, and how you know. Step 4: review, optional door word, your phone number.',
+   Easy:'One decision per screen. Back always works. Send stays greyed out until the phone number is long enough.',
+   Offline:'With no signal the report is saved on the phone and marked "will send when signal returns".',
+   Misuse:'Anyone can report. That is why every report carries how the reporter knows, and why the helper list shows the source (see Trust).' } },
+ { n:'Urgency score', b:'built', w:'A plain sum of points, shown as a colour, a shape and words.', d:{
+   Rules:`<table class="pts"><tr><th>Who</th><th>Problem</th><th>Since care</th></tr><tr><td>Baby 5 · Elder 3 · Ill 3 · Disability 2 · Other 2</td><td>Medicine 3 · Locked in 3 · No food or water 2 · Cannot get up 2 · Alone 1</td><td>Under 3h 0 · 3–12h 2 · Since yesterday 4</td></tr></table>9 or more is <b>▲ Go now</b>. 6 to 8 is <b>● Today</b>. Below 6 is <b>■ Within a day</b>.`,
+   Easy:'Helpers can see why a case is red. They are never asked to trust a hidden number.',
+   Misuse:'A reporter could tick every box to jump the queue. A visit that finds less lowers that reporter\'s reliability (designed).' } },
+ { n:'Photo of the person', b:'built', w:'Lets a helper recognise the right person in a building.', d:{
+   Rules:'Optional. Shrunk on the phone to about 360 px so it sends on a weak line. Hidden in the list. Shown only at the door, after the helper has committed and said they are outside, with a "do not save or share" note.',
+   Offline:'Switched off on weak signal and no signal. The form says to add one later.',
+   Misuse:'The photo is the most sensitive item, so it is released last. Preventing screenshots is not possible in a browser; vouching and logging cover that (designed).' } },
+ { n:'Door word', b:'built', w:'A word the person knows, passed from the reporter to the helper.', d:{
+   Rules:'Optional. Helper is told to say it through the door. Helps an older person who will not open to a stranger, and shows the helper really was sent.',
+   Misuse:'Never shown in the list. Only the claiming helper sees that one exists.' } },
+ { n:'Preview of what strangers see', b:'built', w:'Before sending, the reporter sees exactly what is shown and what is hidden.', d:{
+   Rules:'Shows the anonymous card ("Small child, no food or water, about 400 m away") and lists what stays hidden: name, address, flat, photo, number.',
+   Easy:'A family member can send a report without worrying who will see it.' } }
+]},
+{ id:'go', title:'2. Someone goes', sub:'Used by the neighbour with a few spare hours. Everything they see is anonymous until they commit.', f:[
+ { n:'Nearby list', b:'built', w:'Anonymous cards ordered by urgency, then distance.', d:{
+   Rules:'Each card: urgency, generic type ("Older person"), problems, zone, distance rounded to 50 m, minutes since report, how many people reported it, and a "photo on file" note. No name, no address, no number.',
+   Easy:'Filters: Everyone, Children, Needs medicine, Locked in.',
+   Misuse:'No map of pins and no way to browse by street, so the list cannot be used to find empty homes.' } },
+ { n:'"I\'ll go" claim', b:'built', w:'One helper takes one case.', d:{
+   Rules:'A helper can hold one open visit at a time. While it is open, other "I\'ll go" buttons are greyed out. The claim is held for 90 minutes, then returns to the list. "I can\'t go after all" releases it at once.',
+   Misuse:'One at a time stops someone collecting many addresses. The 90-minute expiry and the activity log are designed, not enforced in the prototype.' } },
+ { n:'Staged address reveal', b:'built', w:'Information is released in steps, as the helper earns it.', d:{
+   Rules:'List: zone only. After "I\'ll go": building and street. After "I\'m outside the building": flat, door colour, name, photo, reporter\'s number.',
+   Misuse:'Someone who never arrives never learns the flat. Every reveal is logged against a vouched name (designed).' } },
+ { n:'Safety note for children', b:'built', w:'Child and sick-person cases ask the helper to bring one other person and tell someone where they are going.', d:{
+   Rules:'Shown on the walk screen for baby and ill cases.',
+   Misuse:'Reduces the chance that a single bad actor is alone with a child. It lowers the risk and does not remove it.' } }
+]},
+{ id:'find', title:'3. They find out what is needed', sub:'Recorded at the door in yes or no taps, with one hand.', f:[
+ { n:'Three door outcomes', b:'built', w:'Not every visit finds a person.', d:{
+   Rules:'<b>Inside:</b> continue. <b>Nobody here or wrong address:</b> closes the case, no blame. <b>Locked, no answer:</b> returns to the list, marked "locked in", with one more confirmation.',
+   Misuse:'An honest "nobody here" is cheap, so it gets used. That is how false reports are caught.' } },
+ { n:'Findings checklist', b:'built', w:'The facts the next person needs.', d:{
+   Rules:'How are they (okay, weak, very bad). Then yes or no: water, food, medicine they need, electricity, safe to leave alone. Next stays greyed out until every line is answered.',
+   Easy:'No typing. Yes is green, No is red, and both are labelled.' } },
+ { n:'Medical line prompt', b:'built', w:'"Very bad" shows a warning to call the local clinic and stay with the person.', d:{
+   Rules:'The clinic is a placeholder in the prototype. In a real deployment each ward lists its own number.' } },
+ { n:'Progress bar', b:'built', w:'Walk, Knock, Look, Hand over.', d:{
+   Easy:'A shaken person always knows what comes next and how far through they are.' } }
+]},
+{ id:'own', title:'4. Someone stays responsible', sub:'The step most emergency tools skip.', f:[
+ { n:'Enforced handover', b:'built', w:'A visit cannot close without a named person and a next-check time.', d:{
+   Rules:'Pick who: me, a neighbour who agreed (name and phone required), family on the way, or nobody yet. Pick when: 2 hours, tonight 8 pm, tomorrow 8 am. Done stays greyed out until both are set.',
+   Easy:'Shows what is still missing (water, food, medicine, power) and warns if the person is not safe to leave alone.' } },
+ { n:'"Nobody yet" returns it', b:'built', w:'If nobody can take over, the case goes back to the top of the list with what the helper found.', d:{
+   Rules:'It is marked not safe alone and waiting since yesterday, so it rises to the top. The next helper does not start from zero.' } },
+ { n:'My visits and overdue checks', b:'built', w:'A list of everyone you promised to check on.', d:{
+   Rules:'Each has a next-check time. "Checked, fine" sets tomorrow 8 am. "Needs help again" puts the case back at the top. An overdue check shows a red dot on the tab and a red card on Home.',
+   Misuse:'Automatic escalation of an overdue check to another helper is designed, not built.' } }
+]},
+{ id:'net', title:'5. Works when the network gets worse', sub:'Assume patchy internet by day 2 or 3, and basic phone signal only in places.', f:[
+ { n:'Save now, send later', b:'built', w:'Every action is stored on the phone first.', d:{
+   Rules:'With no signal, a banner says so and counts items waiting. When signal returns they send by themselves and a message confirms how many.',
+   Easy:'Nothing is lost if a person taps and then walks into a dead zone.' } },
+ { n:'SMS fallback', b:'design', w:'A pre-written text for people with no data at all.', d:{
+   Rules:'Format: <code>HELP &lt;who&gt; &lt;problems joined with +&gt; &lt;hours&gt; &lt;building&gt; &lt;flat&gt; &lt;door word&gt;</code>. The banner offers it as a tap. The prototype builds the text but nothing receives it.' } },
+ { n:'Light by design', b:'built', w:'Plain files, system fonts, no downloads, photos off when weak.', d:{
+   Rules:'The app loads from three small files. Nothing is fetched while using it.' } }
+]},
+{ id:'trust', title:'6. Trust and misuse', sub:'Bad people will use this. Some reports will be wrong.', f:[
+ { n:'Source of every report', b:'built', w:'Helpers see how much weight to give each card.', d:{
+   Rules:'"Reported by care staff", "3 people reported", or "Single report, unconfirmed". An unconfirmed report about a baby is never hidden.' } },
+ { n:'Vouched helpers', b:'design', w:'Only people a local group vouches for can claim.', d:{
+   Rules:'Ward volunteer groups, a school, a clinic or a temple add people they personally know. The prototype shows the label but does not check anyone.' } },
+ { n:'Reliability and access log', b:'design', w:'Wrong reports lower a score. Confirmed ones raise it. Every address reveal is recorded.', d:{
+   Rules:'A reporter with several empty addresses stops being shown first. A pattern of claims with no visits flags the helper for review by their vouching group.' } }
+]},
+{ id:'coord', title:'7. Coordinators and the wider picture', sub:'For the nurse with three staff instead of thirty, and for volunteer leads.', f:[
+ { n:'Care-staff board', b:'built', w:'Every case with urgency, type, zone, status and wait.', d:{
+   Rules:'Summary chips: waiting, on the way, held, late or overdue. Rows over two hours unclaimed, or with a missed check, are highlighted. It shows no names, addresses or photos.' } },
+ { n:'World map', b:'built', w:'Where help is short, by city.', d:{
+   Rules:'Bubble size is people waiting. Colour and shape show waiting per helper: ▲ 4 or more, ● 2 to 4, ■ under 2. A ranked list sits beside it and works as the accessible version. Your own area updates live in the demo.',
+   Misuse:'Counts per city only. A zone with fewer than 20 reports would be merged into the next larger one so a single house cannot be picked out (designed, not enforced).' } }
+]},
+{ id:'ease', title:'8. Easy for someone in a bad state', sub:'Nobody is browsing. Everyone opening this is scared.', f:[
+ { n:'Big targets, few words', b:'built', w:'Buttons are at least 56 px tall, text is high contrast and readable in sun.', d:{ Rules:'One main action per screen. Colour is never the only signal.' } },
+ { n:'Listen', b:'built', w:'Reads the current screen aloud.', d:{ Rules:'Uses the phone\'s built-in voice. Tap again to stop. Helps someone in shock or who reads slowly.' } },
+ { n:'Bigger text', b:'built', w:'One tap makes everything larger.', d:{ Rules:'On the website demo panel.' } },
+ { n:'Bottom tabs', b:'built', w:'Home, Report, Nearby, My visits.', d:{ Rules:'Shown on the main screens, hidden during a report or visit so nothing pulls the person away midway.' } },
+ { n:'Other languages', b:'design', w:'Hindi and other local languages.', d:{ Rules:'Not in the prototype. Every label would need a translation, and half-translated screens are worse than none.' } }
+]}
+];
+const bl = {built:'Working in prototype', design:'Designed, not built'};
+document.getElementById('toc').innerHTML = G.map(g => `<a href="#${g.id}">${g.title.replace(/^\d+\. /,'')}</a>`).join('');
+document.getElementById('groups').innerHTML = G.map(g => `<section class="group" id="${g.id}"><div class="wrap"><h2>${g.title}</h2><p class="mute">${g.sub}</p>` +
+  g.f.map(f => `<article class="feat"><div><h3>${f.n}</h3><p class="what">${f.w}</p><span class="badge ${f.b}">${bl[f.b]}</span></div><dl class="d">${Object.entries(f.d).map(([k,v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl></article>`).join('') +
+  `</div></section>`).join('');
+</script>
+</body>
+</html>
